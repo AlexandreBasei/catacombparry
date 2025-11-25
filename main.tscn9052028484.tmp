@@ -1,22 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkoydjmqbe5w"]
+[gd_scene load_steps=5 format=3 uid="uid://bkoydjmqbe5w"]
 
 [ext_resource type="Script" uid="uid://lrjbuapips3n" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b7cf7lrwn5du8" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://8frch2txfanv" path="res://Map/map.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://dqk8uqu0ri053" path="res://mob_a.tscn" id="3_lquwl"]
-[ext_resource type="PackedScene" uid="uid://drq0g4fgjrhct" path="res://mobd.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://drq0g4fgjrhct" path="res://mob.tscn" id="8_5vw27"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
-mobs_to_spawn = Array[PackedScene]([ExtResource("8_5vw27"), ExtResource("3_lquwl")])
+mob_to_spawn = ExtResource("8_5vw27")
 
 [node name="Map" parent="." instance=ExtResource("3_1bvp3")]
-position = Vector2(0, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(0, 0)
+position = Vector2(578, 330)
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

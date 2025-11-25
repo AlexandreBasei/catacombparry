@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj2u2jtbqvdv7"]
+
+[ext_resource type="Texture2D" uid="uid://qmsg4341h68w" path="res://art/Map/candleB_01.png" id="1_00ld7"]
+[ext_resource type="Texture2D" uid="uid://dwkyveiwowxnb" path="res://art/Map/candleB_02.png" id="2_r248n"]
+[ext_resource type="Texture2D" uid="uid://c5rana0lkgmxj" path="res://art/Map/candleB_03.png" id="3_2nlto"]
+[ext_resource type="Texture2D" uid="uid://76vovsgrnuq8" path="res://art/Map/candleB_04.png" id="4_iv3is"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42t0e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_00ld7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r248n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2nlto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iv3is")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Candle_B" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_42t0e")
+autoplay = "default"
+frame_progress = 0.87918395

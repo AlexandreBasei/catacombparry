@@ -4,8 +4,10 @@ extends CharacterBody2D
 @export var friction = 0.5
 @export var acceleration = 0.3
 @export var maxHp:int = 100
+@export var orbit_distance: float = 50.0
 
 @onready var animations = $AnimatedSprite2D
+@onready var orbit_object = $Shield
 
 var hp:int
 var isWalking:bool = false
@@ -50,8 +52,20 @@ func _physics_process(delta):
 	if (!isWalking and !isParrying and !isDead):
 		animations.play("idle")
 		
+	_update_orbit_object()
+	
 	move_and_slide()
 
+func _update_orbit_object():
+	if (orbit_object == null):
+		return
+		
+	var mouse_pos = get_global_mouse_position()
+	var dir = (mouse_pos - global_position).normalized()
+	
+	orbit_object.global_position = global_position + dir * orbit_distance
+	
+	orbit_object.rotation = dir.angle() + PI / 2
 
 func takeDamage(dmg:int):
 	hp -= dmg

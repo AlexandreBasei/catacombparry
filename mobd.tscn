@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://drq0g4fgjrhct"]
 
 [ext_resource type="Texture2D" uid="uid://csv4c38wpaid8" path="res://art/Characters/Mobs/skeleton.png" id="1_dy6sc"]
-[ext_resource type="Script" uid="uid://xkiwnghv0rgf" path="res://mob.gd" id="1_nokgg"]
+[ext_resource type="Script" uid="uid://xkiwnghv0rgf" path="res://mobd.gd" id="1_nokgg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ieysi"]
 atlas = ExtResource("1_dy6sc")
@@ -106,18 +106,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jbnni"]
-size = Vector2(10, 14)
+size = Vector2(10, 13)
 
-[node name="Mob" type="CharacterBody2D"]
+[node name="MobD" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 2
 script = ExtResource("1_nokgg")
+repath_interval = 0.2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_b3mxk")
 animation = &"run"
 autoplay = "run"
-frame_progress = 0.41307944
+frame_progress = 0.03944926
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_jbnni")
