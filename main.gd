@@ -5,10 +5,12 @@ extends Node2D
 @onready var spawn_timer = $SpawnTimer
 @onready var player = $Player
 @onready var map = $Map
+@onready var health_bar = $CanvasLayer/HealthBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	spawn_timer.start()
+	health_bar.init_HP(player.maxHp)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,3 +39,11 @@ func spawnMob():
 			mob.position = Vector2(player.position.x - randf_range(150, 50), player.position.y - randf_range(150, 50))
 	
 	add_child(mob)
+
+
+func _on_player_player_dead() -> void:
+	spawn_timer.stop()
+
+
+func _on_player_hurt(damage: int) -> void:
+	health_bar._set_health(health_bar.health - damage)

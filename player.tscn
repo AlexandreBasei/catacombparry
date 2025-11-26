@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b7cf7lrwn5du8"]
+[gd_scene load_steps=48 format=3 uid="uid://b7cf7lrwn5du8"]
 
 [ext_resource type="Script" uid="uid://ba5gdp1n2wpvu" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://bxyx0pv4h8i1u" path="res://art/Characters/Player/Human_Soldier_Sword_Shield_Death-Sheet.png" id="2_2hs0m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bl1g03u3t8pv4" path="res://art/Characters/Player/Human_Soldier_Sword_Shield_Block-Sheet.png" id="5_b26j0"]
 [ext_resource type="Texture2D" uid="uid://4jwinfey0um5" path="res://art/Characters/Player/Human_Soldier_Sword_Shield_Walk-Sheet.png" id="6_n7ghd"]
 [ext_resource type="Texture2D" uid="uid://bc2s630maa5e0" path="res://art/shield.png" id="7_1jxqw"]
+[ext_resource type="Script" uid="uid://bwpkblv28bcgr" path="res://camera_2d.gd" id="7_dw050"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nvl01"]
 atlas = ExtResource("2_2hs0m")
@@ -277,8 +278,19 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(13, 18.333334)
 
-[node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -28)
+[sub_resource type="Gradient" id="Gradient_prux1"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1jxqw"]
+gradient = SubResource("Gradient_prux1")
+fill = 1
+fill_from = Vector2(0.5, 0.528)
+fill_to = Vector2(0.8411215, 0.18224299)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
+size = Vector2(30, 16.333336)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(3, 3)
 collision_mask = 6
 script = ExtResource("1_4flbx")
@@ -295,11 +307,27 @@ position = Vector2(0.5, 0.16666698)
 shape = SubResource("RectangleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("7_dw050")
 
-[node name="Shield" type="Sprite2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.75686276, 0.45882353, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_1jxqw")
+
+[node name="Shield" type="Area2D" parent="."]
+position = Vector2(0, -14.333)
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield"]
 texture_filter = 1
-position = Vector2(0, -14.333333)
 scale = Vector2(1.0052083, 0.71875)
 texture = ExtResource("7_1jxqw")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+position = Vector2(0, -2.8336678)
+shape = SubResource("RectangleShape2D_dw050")
+debug_color = Color(0.8895874, 0.098417915, 0.75651574, 0.41960785)
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]
+[connection signal="body_exited" from="Shield" to="." method="_on_shield_body_exited"]

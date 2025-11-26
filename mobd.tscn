@@ -65,8 +65,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pcqmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcqmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcqmr")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -108,7 +114,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jbnni"]
 size = Vector2(10, 13)
 
-[node name="MobD" type="CharacterBody2D"]
+[node name="MobD" type="CharacterBody2D" groups=["mobs"]]
 scale = Vector2(3, 3)
 collision_layer = 2
 script = ExtResource("1_nokgg")
@@ -117,10 +123,11 @@ repath_interval = 0.2
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_b3mxk")
-animation = &"run"
+animation = &"death"
 autoplay = "run"
-frame_progress = 0.03944926
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_jbnni")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
