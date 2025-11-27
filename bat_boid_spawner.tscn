@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ykpxrwua3gfx"]
+
+[ext_resource type="Script" uid="uid://dihu8dr8ck7vx" path="res://bat_boid_spawner.gd" id="1_4cq8r"]
+
+[node name="BatBoidSpawner" type="Node2D"]
+script = ExtResource("1_4cq8r")

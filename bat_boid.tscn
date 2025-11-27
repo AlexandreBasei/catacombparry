@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://bh0daexf6yk6g"]
+
+[ext_resource type="Texture2D" uid="uid://by37itg5rwsid" path="res://art/Characters/Mobs/bat/Bat_Fly_0.png" id="1_lmvi6"]
+[ext_resource type="Script" uid="uid://hsc0a7w658vi" path="res://bat_boid.gd" id="1_rf6hf"]
+[ext_resource type="Texture2D" uid="uid://bdnyw735glxff" path="res://art/Characters/Mobs/bat/Bat_Fly_1.png" id="2_rf6hf"]
+[ext_resource type="Texture2D" uid="uid://bwah1vdroycuv" path="res://art/Characters/Mobs/bat/Bat_Fly_2.png" id="3_sqq1g"]
+[ext_resource type="Texture2D" uid="uid://bebyjccm0q6" path="res://art/Characters/Mobs/bat/Bat_Fly_3.png" id="4_ds511"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttvl3"]
+atlas = ExtResource("1_lmvi6")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxc88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttvl3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rf6hf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sqq1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ds511")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 6.0
+}]
+
+[node name="BatBoid" type="Area2D"]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_rf6hf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.6369863, 1, 0.63243484, 1)
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_pxc88")
+animation = &"fly"
+autoplay = "fly"
+frame_progress = 0.2812479

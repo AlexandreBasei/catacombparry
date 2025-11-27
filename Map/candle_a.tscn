@@ -41,6 +41,7 @@ autoplay = "default"
 frame_progress = 0.25947565
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.5, 1.5)
 color = Color(0.99999243, 0.6287741, 0.10594673, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_dp33a")

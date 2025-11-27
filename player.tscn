@@ -310,6 +310,7 @@ shape = SubResource("RectangleShape2D_2hs0m")
 script = ExtResource("7_dw050")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 color = Color(1, 0.75686276, 0.45882353, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_1jxqw")
