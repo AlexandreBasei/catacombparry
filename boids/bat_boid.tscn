@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bh0daexf6yk6g"]
+[gd_scene load_steps=9 format=3 uid="uid://bh0daexf6yk6g"]
 
 [ext_resource type="Texture2D" uid="uid://by37itg5rwsid" path="res://art/Characters/Mobs/bat/Bat_Fly_0.png" id="1_lmvi6"]
 [ext_resource type="Script" uid="uid://hsc0a7w658vi" path="res://boids/bat_boid.gd" id="1_rf6hf"]
@@ -30,14 +30,18 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtvee"]
+size = Vector2(13, 18)
+
 [node name="BatBoid" type="Area2D"]
 collision_layer = 8
-collision_mask = 9
+collision_mask = 25
 script = ExtResource("1_rf6hf")
 speed = 1.0
 maxVelocity = 3.0
 attraction = 50.0
 repulsion = 5.0
+move_near = 20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.6369863, 1, 0.63243484, 1)
@@ -46,3 +50,7 @@ sprite_frames = SubResource("SpriteFrames_pxc88")
 animation = &"fly"
 autoplay = "fly"
 frame_progress = 0.2812479
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 5)
+shape = SubResource("RectangleShape2D_wtvee")

@@ -12,6 +12,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#spawn_timer.start()
+	boid_spawner.exclusion_zones = map.get_children()
 	boid_timer.start()
 	health_bar.init_HP(player.maxHp)
 

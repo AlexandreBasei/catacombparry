@@ -5,15 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://b0by463x85t5t" path="res://art/Map/torch_3.png" id="3_spwcr"]
 [ext_resource type="Texture2D" uid="uid://chsulsquk2uqm" path="res://art/Map/torch_4.png" id="4_sewdt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ustg"]
-atlas = ExtResource("1_prux1")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_47ibs"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_mgfwy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4ustg")
+"texture": ExtResource("1_prux1")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_f7203")
@@ -26,7 +22,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 3.0
+"speed": 5.0
 }]
 
 [sub_resource type="Gradient" id="Gradient_prux1"]
@@ -38,14 +34,22 @@ fill = 1
 fill_from = Vector2(0.5, 0.528)
 fill_to = Vector2(0.8411215, 0.18224299)
 
-[node name="Torch" type="AnimatedSprite2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgfwy"]
+radius = 80.0
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_47ibs")
-autoplay = "default"
-frame_progress = 0.45518327
+sprite_frames = SubResource("SpriteFrames_mgfwy")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(2.5, 2.5)
 color = Color(1, 0.75686276, 0.45882353, 1)
 energy = 1.2
 texture = SubResource("GradientTexture2D_f7203")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mgfwy")

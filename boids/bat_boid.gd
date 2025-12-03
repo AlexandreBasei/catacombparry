@@ -6,6 +6,7 @@ class_name BatBoid
 @export var maxVelocity:float = 100
 @export var attraction:float = 200
 @export var repulsion:float = 2
+@export var move_near:float = 40
 
 var velocityX = randi_range(1,10) / 10.0
 var velocityY = randi_range(1,10) / 10.0
@@ -54,8 +55,8 @@ func moveWith(boids:Array[BatBoid]):
 	avgX /= len(boids)
 	avgY /= len(boids)
 	
-	velocityX += (avgX / 40)
-	velocityY += (avgY / 40)
+	velocityX += (avgX / move_near)
+	velocityY += (avgY / move_near)
 	
 func moveAway(boids:Array[BatBoid], minDistance:float):
 	if len(boids) < 1 : return
@@ -91,3 +92,13 @@ func move():
 	
 	position.x += velocityX
 	position.y += velocityY
+
+func moveTowards(targetPos: Vector2, attractionForce: float):
+	var dirX = targetPos.x - position.x
+	var dirY = targetPos.y - position.y
+	
+	# Normaliser la direction
+	var dist = sqrt(dirX * dirX + dirY * dirY)
+	if dist > 0:
+		velocityX += (dirX / dist) * (attractionForce / dist) * 10
+		velocityY += (dirY / dist) * (attractionForce / dist) * 10

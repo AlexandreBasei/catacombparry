@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dr72yfsml0yny"]
+[gd_scene load_steps=9 format=3 uid="uid://dr72yfsml0yny"]
 
 [ext_resource type="Texture2D" uid="uid://xbptqhlojppx" path="res://art/Map/candleA_01.png" id="1_dp33a"]
 [ext_resource type="Texture2D" uid="uid://dagnx080lpxoi" path="res://art/Map/candleA_02.png" id="2_wqq0x"]
 [ext_resource type="Texture2D" uid="uid://ce2cwdcsjekht" path="res://art/Map/candleA_03.png" id="3_51gfe"]
 [ext_resource type="Texture2D" uid="uid://ob7ap1alw3oe" path="res://art/Map/candleA_04.png" id="4_ii5ev"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xgucd"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qns3d"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -28,20 +28,29 @@ animations = [{
 [sub_resource type="Gradient" id="Gradient_00ld7"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dp33a"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kr3lc"]
 gradient = SubResource("Gradient_00ld7")
 fill = 1
 fill_from = Vector2(0.5, 0.528)
 fill_to = Vector2(0.8411215, 0.18224299)
 
-[node name="Candle_A" type="AnimatedSprite2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2rea"]
+radius = 48.0
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_xgucd")
-autoplay = "default"
-frame_progress = 0.25947565
+sprite_frames = SubResource("SpriteFrames_qns3d")
+frame_progress = 0.4851396
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(1.5, 1.5)
 color = Color(0.99999243, 0.6287741, 0.10594673, 1)
 energy = 0.8
-texture = SubResource("GradientTexture2D_dp33a")
+texture = SubResource("GradientTexture2D_kr3lc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_t2rea")

@@ -7,4 +7,3 @@
 script = ExtResource("1_4cq8r")
 boidScene = ExtResource("2_l3hg7")
 border = 10.0
-destroyMargin = 150.0
