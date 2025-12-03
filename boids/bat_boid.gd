@@ -3,8 +3,10 @@ extends Area2D
 class_name BatBoid
 
 @export var speed:float = 20
+@export var maxVelocity:float = 100
+@export var attraction:float = 200
+@export var repulsion:float = 2
 
-var maxVelocity
 var velocityX = randi_range(1,10) / 10.0
 var velocityY = randi_range(1,10) / 10.0
 
@@ -37,8 +39,8 @@ func moveCloser(boids:Array[BatBoid]):
 	avgX /= len(boids)
 	avgY /= len(boids)
 	
-	velocityX -= (avgX / 100)
-	velocityY -= (avgY / 100)
+	velocityX -= (avgX / attraction)
+	velocityY -= (avgY / attraction)
 	
 func moveWith(boids:Array[BatBoid]):
 	if len(boids) < 1 : return
@@ -73,12 +75,12 @@ func moveAway(boids:Array[BatBoid], minDistance:float):
 			if ydiff >= 0:  ydiff = sqrt(minDistance) - ydiff
 			elif ydiff < 0:  ydiff = -sqrt(minDistance) - ydiff
 			distanceX += xdiff
-			distanceY += distanceY
+			distanceY += ydiff
 	if numClose == 0:
 		return
 	
-	velocityX -= distanceX / 5
-	velocityY -= distanceY / 5
+	velocityX -= distanceX / repulsion
+	velocityY -= distanceY / repulsion
 	
 func move():
 	if abs(velocityX) > maxVelocity or abs(velocityY) > maxVelocity:
@@ -89,24 +91,3 @@ func move():
 	
 	position.x += velocityX
 	position.y += velocityY
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

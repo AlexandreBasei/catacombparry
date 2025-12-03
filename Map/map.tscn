@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bls4hcuc3oesa" path="res://art/Map/mainlevbuild.png" id="1_8svjd"]
 [ext_resource type="Texture2D" uid="uid://clhs7fbpqibqv" path="res://art/Map/decorative.png" id="2_3g1qk"]
-[ext_resource type="PackedScene" uid="uid://o35pildc3ao1" path="res://Map/torch.tscn" id="3_d1580"]
-[ext_resource type="PackedScene" uid="uid://dr72yfsml0yny" path="res://Map/candle_a.tscn" id="4_5ej7w"]
-[ext_resource type="PackedScene" uid="uid://cj2u2jtbqvdv7" path="res://Map/candle_b.tscn" id="5_lymsy"]
+[ext_resource type="PackedScene" uid="uid://o35pildc3ao1" path="res://map/torch.tscn" id="3_d1580"]
+[ext_resource type="PackedScene" uid="uid://dr72yfsml0yny" path="res://map/candle_a.tscn" id="4_5ej7w"]
+[ext_resource type="PackedScene" uid="uid://cj2u2jtbqvdv7" path="res://map/candle_b.tscn" id="5_lymsy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5cbny"]
 texture = ExtResource("1_8svjd")

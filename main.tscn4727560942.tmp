@@ -36,15 +36,15 @@ offset_right = 634.0
 offset_bottom = 62.0
 
 [node name="BoidTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
 
-[node name="BatBoidSpawner" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("7_272bh")]
-position = Vector2(1, -199)
-tilemap = NodePath("../Map")
-destroyMargin = 400.0
+[node name="BatBoidSpawner" parent="." instance=ExtResource("7_272bh")]
+position = Vector2(-691, -308)
+size = null
+maxVelocity = null
+numBoids = null
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [connection signal="hurt" from="Player" to="." method="_on_player_hurt"]
 [connection signal="player_dead" from="Player" to="." method="_on_player_player_dead"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="BoidTimer" to="." method="_on_boid_timer_timeout"]

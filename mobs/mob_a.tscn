@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://dqk8uqu0ri053"]
 
-[ext_resource type="Script" uid="uid://cniiq72t763x5" path="res://mob_a.gd" id="1_iufcg"]
+[ext_resource type="Script" uid="uid://cniiq72t763x5" path="res://mobs/mob_a.gd" id="1_iufcg"]
 [ext_resource type="Texture2D" uid="uid://csv4c38wpaid8" path="res://art/Characters/Mobs/skeleton.png" id="2_t0km7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ieysi"]

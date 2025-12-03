@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bh0daexf6yk6g"]
 
 [ext_resource type="Texture2D" uid="uid://by37itg5rwsid" path="res://art/Characters/Mobs/bat/Bat_Fly_0.png" id="1_lmvi6"]
-[ext_resource type="Script" uid="uid://hsc0a7w658vi" path="res://bat_boid.gd" id="1_rf6hf"]
+[ext_resource type="Script" uid="uid://hsc0a7w658vi" path="res://boids/bat_boid.gd" id="1_rf6hf"]
 [ext_resource type="Texture2D" uid="uid://bdnyw735glxff" path="res://art/Characters/Mobs/bat/Bat_Fly_1.png" id="2_rf6hf"]
 [ext_resource type="Texture2D" uid="uid://bwah1vdroycuv" path="res://art/Characters/Mobs/bat/Bat_Fly_2.png" id="3_sqq1g"]
 [ext_resource type="Texture2D" uid="uid://bebyjccm0q6" path="res://art/Characters/Mobs/bat/Bat_Fly_3.png" id="4_ds511"]
@@ -34,6 +34,10 @@ animations = [{
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_rf6hf")
+speed = 1.0
+maxVelocity = 3.0
+attraction = 50.0
+repulsion = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.6369863, 1, 0.63243484, 1)
