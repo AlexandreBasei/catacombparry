@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs1bwugmcpnwe"]
+
+[ext_resource type="Script" uid="uid://fi24wff5blf1" path="res://ui/hud.gd" id="1_276te"]
+[ext_resource type="FontFile" uid="uid://durdj1goimrpv" path="res://art/Fonts/Jersey10-Regular.ttf" id="1_rbyyf"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_276te")
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.275
+anchor_right = 0.5
+anchor_bottom = 0.275
+offset_left = -62.0
+offset_top = -11.199997
+offset_right = 62.0
+offset_bottom = 11.800003
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_rbyyf")
+theme_override_font_sizes/font_size = 76
+text = "Catacomb Parry"
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -36.99997
+offset_right = 26.0
+offset_bottom = 11.0000305
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.57, 1.57)
+theme_override_fonts/font = ExtResource("1_rbyyf")
+theme_override_font_sizes/font_size = 36
+text = "Start"
+
+[connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]

@@ -8,6 +8,8 @@ class_name BatBoid
 @export var repulsion:float = 2
 @export var move_near:float = 40
 
+@onready var sprite = $AnimatedSprite2D
+
 var velocityX = randi_range(1,10) / 10.0
 var velocityY = randi_range(1,10) / 10.0
 
@@ -90,6 +92,11 @@ func move():
 		velocityX *= scaleFactor
 		velocityY *= scaleFactor
 	
+	if velocityX < 0:
+		sprite.flip_h = false
+	elif velocityX > 0:
+		sprite.flip_h = true
+	
 	position.x += velocityX
 	position.y += velocityY
 
@@ -102,3 +109,14 @@ func moveTowards(targetPos: Vector2, attractionForce: float):
 	if dist > 0:
 		velocityX += (dirX / dist) * (attractionForce / dist) * 10
 		velocityY += (dirY / dist) * (attractionForce / dist) * 10
+
+func moveAwayFrom(targetPos: Vector2, repulsionForce: float, maxDistance: float):
+	var dirX = position.x - targetPos.x
+	var dirY = position.y - targetPos.y
+	
+	var dist = sqrt(dirX * dirX + dirY * dirY)
+	if dist > 0 and dist < maxDistance:
+		# Plus on est proche, plus la répulsion est forte
+		var strength = (maxDistance - dist) / maxDistance
+		velocityX += (dirX / dist) * repulsionForce * strength
+		velocityY += (dirY / dist) * repulsionForce * strength

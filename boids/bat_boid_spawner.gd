@@ -6,9 +6,12 @@ extends Node2D
 @export var tilemap:TileMap
 @export var border:float = 25.0
 @export var destroy_margin:float = 100.0  # Marge avant destruction
+@export var min_distance:float = 50
 @export var player:CharacterBody2D
 @export var player_attraction:float = 50.0  # Force d'attraction vers le joueur
 @export var exclusion_zones:Array[Node] = []  # Zones où les boids ignorent le joueur
+@export var repulsion_zones:Array[Node] = []  # Zones où les boids ne peuvent pas aller
+@export var repulsion_force:float = 100.0  # Force de répulsion des zones
 
 var boids:Array[BatBoid] = []
 var mapBounds:Rect2
@@ -54,10 +57,13 @@ func boids_logic():
 		
 		boid.moveCloser(closeBoids)
 		boid.moveWith(closeBoids)
-		boid.moveAway(closeBoids, 100)
+		boid.moveAway(closeBoids, min_distance)
+		
+		# Répulsion des zones interdites
+		apply_zone_repulsion(boid)
 		
 		# Attirer vers le joueur si il n'est pas sur une lumière
-		if player and not is_player_in_exclusion_zone():
+		if player:
 			boid.moveTowards(player.position, player_attraction)
 		
 		boid.move()
@@ -90,6 +96,24 @@ func is_player_in_exclusion_zone() -> bool:
 				if rect.has_point(player.global_position):
 					return true
 	return false
+
+func apply_zone_repulsion(boid:BatBoid):
+	for zone in repulsion_zones:
+		if not zone:
+			continue
+		
+		var shape_node = zone.get_node_or_null("CollisionShape2D")
+		if not shape_node:
+			continue
+		
+		var shape = shape_node.shape
+		
+		# Zone circulaire
+		if shape is CircleShape2D:
+			var dist = boid.position.distance_to(zone.global_position)
+			# Appliquer répulsion si proche ou dans la zone
+			if dist < shape.radius + 100:  # 50 pixels de marge
+				boid.moveAwayFrom(zone.global_position, repulsion_force, shape.radius + 50)
 
 func is_outside_map(boid: BatBoid) -> bool:
 	if not mapBounds:

@@ -7,3 +7,4 @@
 script = ExtResource("1_4cq8r")
 boidScene = ExtResource("2_l3hg7")
 border = 10.0
+player_attraction = 100.0
