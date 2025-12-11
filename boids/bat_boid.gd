@@ -2,6 +2,7 @@ extends Area2D
 
 class_name BatBoid
 
+@export var damages:float = 2.0
 @export var speed:float = 20
 @export var maxVelocity:float = 100
 @export var attraction:float = 200
@@ -143,3 +144,8 @@ func start_fleeing():
 func stop_fleeing():
 	is_fleeing = false
 	repulsion_time = 0.0
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.takeDamage(damages)

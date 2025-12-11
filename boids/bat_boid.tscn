@@ -33,7 +33,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtvee"]
 size = Vector2(13, 18)
 
-[node name="BatBoid" type="Area2D"]
+[node name="BatBoid" type="Area2D" groups=["mobs"]]
 collision_layer = 8
 collision_mask = 25
 script = ExtResource("1_rf6hf")
@@ -54,3 +54,5 @@ frame_progress = 0.2812479
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 5)
 shape = SubResource("RectangleShape2D_wtvee")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

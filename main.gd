@@ -30,7 +30,13 @@ func start_game():
 	for mob in mobs:
 		mob.queue_free()
 	
+	var boids:Array[Node] = get_tree().get_nodes_in_group("boid")
+	
 	spawn_timer.wait_time = default_spawn_cooldown_diminution
+	
+	for boid in boids:
+		boid.queue_free()
+	
 	spawn_cooldown_diminution = 0.0
 	
 	health_bar._set_health(player.maxHp)
@@ -40,8 +46,8 @@ func start_game():
 	player.show()
 	player.shield.show()
 	
-	spawn_timer.start()
-	#boid_timer.start()
+	#spawn_timer.start()
+	boid_timer.start()
 	player.game_started = true
 
 func _on_spawn_timer_timeout() -> void:
