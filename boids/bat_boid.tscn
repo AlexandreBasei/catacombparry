@@ -37,11 +37,10 @@ size = Vector2(13, 18)
 collision_layer = 8
 collision_mask = 25
 script = ExtResource("1_rf6hf")
-speed = 1.0
-maxVelocity = 3.0
-attraction = 50.0
-repulsion = 5.0
-move_near = 20.0
+speed = 2.0
+maxVelocity = 5.0
+attraction = 1000.0
+repulsion = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.6369863, 1, 0.63243484, 1)

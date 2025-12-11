@@ -31,54 +31,54 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	boids_logic(delta)
 
-func spawnBoids():
+func spawnBoids(spawn_pos):
 	for i in range(numBoids):
 		var boid:BatBoid = boidScene.instantiate()
-		boid.position.x = position.x + randf_range(-50, 50)
-		boid.position.y = position.y + randf_range(-50, 50)
+		boid.position = spawn_pos
 		
 		boids.append(boid)
 		add_sibling(boid)
 
 func boids_logic(delta:float):
 	for boid in boids:
-		# Vérifier si le boid est hors map
-		if is_outside_map(boid):
-			remove_boid(boid)
-			continue
+		if is_instance_valid(boid):
+			# Vérifier si le boid est hors map
+			if is_outside_map(boid):
+				remove_boid(boid)
+				continue
+				
+			# Si le boid est en fuite, il continue en ligne droite
+			if boid.is_fleeing:
+				boid.move()
+				continue
+				
+			#Logique de flocking
+			var closeBoids:Array[BatBoid] = []
+			for otherBoid in boids:
+				if otherBoid == boid: continue
+				var dist = boid.distance(otherBoid)
+				if dist < 200:
+					closeBoids.append(otherBoid)
 			
-		# Si le boid est en fuite, il continue en ligne droite
-		if boid.is_fleeing:
+			boid.moveCloser(closeBoids)
+			boid.moveWith(closeBoids)
+			boid.moveAway(closeBoids, min_distance)
+			
+			# Répulsion des zones interdites
+			var is_in_repulsion = apply_zone_repulsion(boid)
+			
+			if is_in_repulsion:
+				boid.add_repulsion_time(delta)
+				if boid.repulsion_time >= boid.repulsion_threshold:
+					boid.start_fleeing()
+			else:
+				boid.reset_repulsion_time()
+			
+			# Attirer vers le joueur si il n'est pas sur une lumière
+			if player:
+				boid.moveTowards(player.position, player_attraction)
+			
 			boid.move()
-			continue
-			
-		#Logique de flocking
-		var closeBoids:Array[BatBoid] = []
-		for otherBoid in boids:
-			if otherBoid == boid: continue
-			var dist = boid.distance(otherBoid)
-			if dist < 200:
-				closeBoids.append(otherBoid)
-		
-		boid.moveCloser(closeBoids)
-		boid.moveWith(closeBoids)
-		boid.moveAway(closeBoids, min_distance)
-		
-		# Répulsion des zones interdites
-		var is_in_repulsion = apply_zone_repulsion(boid)
-		
-		if is_in_repulsion:
-			boid.add_repulsion_time(delta)
-			if boid.repulsion_time >= boid.repulsion_threshold:
-				boid.start_fleeing()
-		else:
-			boid.reset_repulsion_time()
-		
-		# Attirer vers le joueur si il n'est pas sur une lumière
-		if player:
-			boid.moveTowards(player.position, player_attraction)
-		
-		boid.move()
 
 func is_player_in_exclusion_zone() -> bool:
 	if not player:

@@ -10,6 +10,7 @@ class_name BatBoid
 @export var move_near:float = 40
 
 @onready var sprite = $AnimatedSprite2D
+@onready var collision = $CollisionShape2D
 
 var velocityX = randi_range(1,10) / 10.0
 var velocityY = randi_range(1,10) / 10.0
@@ -137,6 +138,8 @@ func reset_repulsion_time():
 func start_fleeing():
 	if is_fleeing: return
 	is_fleeing = true
+	collision.disabled = true
+	speed += 30
 	
 	var angle = randf() * TAU  # Angle aléatoire entre 0 et 2*PI
 	flee_direction = Vector2(cos(angle), sin(angle))
@@ -144,8 +147,11 @@ func start_fleeing():
 func stop_fleeing():
 	is_fleeing = false
 	repulsion_time = 0.0
+	collision.disabled = false
+	speed -= 30
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.takeDamage(damages)
+		start_fleeing()

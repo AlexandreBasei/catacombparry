@@ -7,8 +7,8 @@ extends Node2D
 @onready var player = $Player
 @onready var player_spawn = $PlayerSpawn
 @onready var map = $Map
-@onready var sk_spawwner:Array[Node] = $SkeletonSpawner.get_children()
-@onready var boid_spawner = $BatBoidSpawner
+@onready var mob_spawwner:Array[Node] = $MobSpawner.get_children()
+@onready var boid_spawner = $MobSpawner
 @onready var boid_timer = $BoidTimer
 @onready var health_bar = $CanvasLayer/HealthBar
 
@@ -57,7 +57,7 @@ func spawnMob():
 	var mob = mobs_to_spawn[randi_range(0,1)].instantiate()
 	mob.target_player = player
 	mob.tilemap = map
-	mob.position = sk_spawwner[randi_range(0, sk_spawwner.size() - 1)].position # Spawn aléatoire entre tous les points de spawn
+	mob.position = mob_spawwner[randi_range(0, mob_spawwner.size() - 1)].position # Spawn aléatoire entre tous les points de spawn
 	
 	add_child(mob)
 	
@@ -73,4 +73,5 @@ func _on_player_hurt(damage: int) -> void:
 	health_bar._set_health(health_bar.health - damage)
 
 func _on_boid_timer_timeout() -> void:
-	boid_spawner.spawnBoids()
+	var boid_spawn_point = mob_spawwner[randi_range(0, mob_spawwner.size() - 1)].position
+	boid_spawner.spawnBoids(boid_spawn_point)
