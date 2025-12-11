@@ -13,6 +13,12 @@ class_name BatBoid
 var velocityX = randi_range(1,10) / 10.0
 var velocityY = randi_range(1,10) / 10.0
 
+# État de fuite
+var is_fleeing:bool = false
+var flee_direction:Vector2 = Vector2.ZERO
+var repulsion_time:float = 0.0  # Temps passé dans une zone de répulsion
+@export var repulsion_threshold:float = 2.0  # Secondes avant de fuir
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -120,3 +126,20 @@ func moveAwayFrom(targetPos: Vector2, repulsionForce: float, maxDistance: float)
 		var strength = (maxDistance - dist) / maxDistance
 		velocityX += (dirX / dist) * repulsionForce * strength
 		velocityY += (dirY / dist) * repulsionForce * strength
+
+func add_repulsion_time(delta: float):
+	repulsion_time += delta
+	
+func reset_repulsion_time():
+	repulsion_time = 0.0
+	
+func start_fleeing():
+	if is_fleeing: return
+	is_fleeing = true
+	
+	var angle = randf() * TAU  # Angle aléatoire entre 0 et 2*PI
+	flee_direction = Vector2(cos(angle), sin(angle))
+
+func stop_fleeing():
+	is_fleeing = false
+	repulsion_time = 0.0
