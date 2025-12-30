@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lrjbuapips3n" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b7cf7lrwn5du8" path="res://player.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://8frch2txfanv" path="res://map/map.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://8frch2txfanv" path="res://Map/map.tscn" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dqk8uqu0ri053" path="res://mobs/mob_a.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://b73iwkq5nncqp" path="res://ui/health_bar.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ykpxrwua3gfx" path="res://boids/bat_boid_spawner.tscn" id="7_272bh"]
@@ -26,18 +26,13 @@ offset_top = 32.0
 offset_right = 292.0
 offset_bottom = 59.0
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 523.0
-offset_top = 39.0
-offset_right = 634.0
-offset_bottom = 62.0
-
 [node name="BoidTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
-[node name="BatBoidSpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_272bh")]
+[node name="BatBoidSpawner" parent="." node_paths=PackedStringArray("tilemap", "player") instance=ExtResource("7_272bh")]
 position = Vector2(1, -199)
+tilemap = NodePath("../Map")
 border = 1.0
 player = NodePath("../Player")
 player_attraction = 50.0

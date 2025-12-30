@@ -18,6 +18,7 @@ var spawn_cooldown_diminution:float = 0.0
 func _ready() -> void:
 	boid_spawner.exclusion_zones = map.get_children()
 	boid_spawner.repulsion_zones = map.get_children()
+	boid_spawner.spawn_points = sk_spawwner
 	health_bar.init_HP(player.maxHp)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,9 +41,10 @@ func start_game():
 	player.show()
 	player.shield.show()
 	
-	spawn_timer.start()
-	#boid_timer.start()
+	#spawn_timer.start()
+	boid_timer.start()
 	player.game_started = true
+	Hud.start_timer()
 
 func _on_spawn_timer_timeout() -> void:
 	spawnMob()

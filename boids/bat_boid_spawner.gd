@@ -12,6 +12,7 @@ extends Node2D
 @export var exclusion_zones:Array[Node] = []  # Zones où les boids ignorent le joueur
 @export var repulsion_zones:Array[Node] = []  # Zones où les boids ne peuvent pas aller
 @export var repulsion_force:float = 100.0  # Force de répulsion des zones
+@export var spawn_points:Array[Node] = []  # Points de spawn possibles
 
 var boids:Array[BatBoid] = []
 var mapBounds:Rect2
@@ -32,10 +33,16 @@ func _process(delta: float) -> void:
 	boids_logic(delta)
 
 func spawnBoids():
+	# Choisir un spawn point aléatoire pour tout le pack
+	var spawn_pos = position
+	if spawn_points.size() > 0:
+		var spawn_point = spawn_points[randi_range(0, spawn_points.size() - 1)]
+		spawn_pos = spawn_point.position
+	
 	for i in range(numBoids):
 		var boid:BatBoid = boidScene.instantiate()
-		boid.position.x = position.x + randf_range(-50, 50)
-		boid.position.y = position.y + randf_range(-50, 50)
+		boid.position.x = spawn_pos.x + randf_range(-50, 50)
+		boid.position.y = spawn_pos.y + randf_range(-50, 50)
 		
 		boids.append(boid)
 		add_sibling(boid)
@@ -67,6 +74,9 @@ func boids_logic(delta:float):
 		# Répulsion des zones interdites
 		var is_in_repulsion = apply_zone_repulsion(boid)
 		
+		# TODO: détecter si les boids sont proches du joueur quand ils sont répulsés pour éviter qu'ils
+		# fuient en recontrant une zone de lumière sur leur chemin vers le joueur
+
 		if is_in_repulsion:
 			boid.add_repulsion_time(delta)
 			if boid.repulsion_time >= boid.repulsion_threshold:
